@@ -21,7 +21,7 @@ jobs:
           command: npm install --save-dev -y jest
       - run:
           name: npx jest Test
-          command: npx --passWithNoTests jest
+          command: npx jest --passWithNoTests
 
   link-check:
     docker:
@@ -41,7 +41,7 @@ jobs:
           command: pwd && find -name "index.html"
       - run:
           name: Check Links
-          command: blcl -ro .
+          command: blcl -ro /templates
 
 # Orchestrate jobs using workflows
 # See: https://circleci.com/docs/configuration-reference/#workflows

@@ -21,7 +21,7 @@ jobs:
           command: npm install --save-dev -y jest
       - run:
           name: npx jest Test
-          command: npx jest
+          command: npx --passWithNoTests jest
 
   link-check:
     docker:

@@ -1,0 +1,45 @@
+<div class="container">
+    <h3>Learn</h3>
+    <p> Our search is powered by ChatGPT. Ask it questions about finance to expand your knowledge.</p>
+
+
+    <div class="container card card flex-1 light-mode light-container-border light-container-bg mx-auto mb-15">
+        <div class="content-header light-mode">Ask
+            <span class="right">
+                <small>Powered by ChatGPT 4
+                </small>
+            </span>
+        </div>
+        <div class="row mb-0">
+            <form action="/" method="POST" class="col s12">
+                <div class="row mb-0">
+                    <div class="input-field col s12">
+                        <textarea id="chat-question" class="materialize-textarea"></textarea>
+                        <label style="width:100%;" for="chat-question">Ask Your Question Here</label>
+                    </div>
+                </div>
+                <div class="row flex">
+                    <button id="chat-submit" class="btn btn-login teal lighten-3 m-auto" type="submit"><i
+                            class="fa-solid fa-question left"></i>Ask A Question</button>
+                </div>
+            </form>
+
+        </div>
+    </div>
+    <div id="response-container"
+        class="container card card flex-1 light-mode light-container-border light-container-bg mx-auto mb-15 d-none">
+        <div class="content-header light-mode">Response
+            <span class="right">
+                <small>Response times may vary
+                </small>
+            </span>
+        </div>
+        <div id="chat-response" class="card-content"></div>
+        <div class="row mb-0">
+            <div id="login-progress-chat" class="progress m-0 d-none">
+                <div class="indeterminate"></div>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="module" src="scripts/learn.js"></script>

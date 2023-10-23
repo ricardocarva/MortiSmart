@@ -6,3 +6,6 @@
 5. run `npm run dev` to start server
 
 make sure you setup your config.env with your own api and database keys.
+
+want to run webpack to rebundle?
+`npx webpack --mode production`

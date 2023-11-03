@@ -61,6 +61,7 @@ app.use(flash());
 
 // static folder set to public
 app.use(express.static(path.join(__dirname, "public")));
+app.use(express.static("public"));
 
 // routes
 app.use("/", require("./routes/index"));

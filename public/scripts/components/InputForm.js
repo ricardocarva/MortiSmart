@@ -50,6 +50,7 @@ export const InputForm = {
                 "Total Interest": totalInterest,
                 "Total Amount Paid": totalAmountPaid,
             };
+            //console.log(resObj, "resObject");
 
             // clear previous results
             const resultsParent = document.getElementById("results-container");

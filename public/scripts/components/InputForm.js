@@ -26,9 +26,9 @@ export const InputForm = {
             termsContainer.classList.remove("m-auto");
             termsContainer.classList.add("m-15");
         }
-        const loan = document.getElementById("loanAmount").value;
-        const interest = document.getElementById("interestRate").value;
-        const term = document.getElementById("loanTerm").value;
+        const loan = Number(document.getElementById("loanAmount").value);
+        const interest = Number(document.getElementById("interestRate").value);
+        const term = Number(document.getElementById("loanTerm").value);
         //const extra = document.getElementById("extraPayments").value;
         if (loan && interest && term) {
             const fixedMonthlyPayment = getMonthlyPayments(
@@ -77,7 +77,6 @@ export const InputForm = {
                 ContentHeader.getElement("Amortization Schedule")
             );
 
-            // get table html element
             const amortSchedule = getAmortizedSchedule(loan, interest, term);
             scheduleParent.appendChild(OutputTable.getElement(amortSchedule));
             const lastPaymentItem = amortSchedule[amortSchedule.length - 1];

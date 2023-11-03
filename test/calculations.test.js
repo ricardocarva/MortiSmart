@@ -6,12 +6,21 @@ const {
 } = require("../public/scripts/calculations");
 
 describe("Calulation Test Cases", () => {
-    test("Get Monthly Payment", () => {
+    test("Get Monthly Payment -  Good Data", () => {
         const amount = 300000;
         const rate = 5;
         const term = 30;
         const actual = getMonthlyPayments(amount, rate, term);
         const expected = 1610.4648690364193;
+        expect(actual).toBe(expected);
+    });
+
+    test("Get Monthly Payment - Bad Data", () => {
+        const amount = "BAD_DATA";
+        const rate = 5;
+        const term = 30;
+        const actual = getMonthlyPayments(amount, rate, term);
+        const expected = -1;
         expect(actual).toBe(expected);
     });
 

@@ -1,10 +1,18 @@
+const isNumber = (value) => {
+    return Object.prototype.toString.call(value) === "[object Number]";
+};
+
 export const getMonthlyPayments = (loan, interest, term) => {
-    const months = term * 12;
-    const mRate = interest / (12 * 100);
-    return (
-        (loan * mRate * Math.pow(1.0 + mRate, months)) /
-        (Math.pow(1.0 + mRate, months) - 1.0)
-    );
+    if (isNumber(loan) && isNumber(interest) && isNumber(term)) {
+        const months = term * 12;
+        const mRate = interest / (12 * 100);
+        return (
+            (loan * mRate * Math.pow(1.0 + mRate, months)) /
+            (Math.pow(1.0 + mRate, months) - 1.0)
+        );
+    } else {
+        return -1;
+    }
 };
 
 export const getTotalInterest = (fixedMonthly, loan, interest, term) => {

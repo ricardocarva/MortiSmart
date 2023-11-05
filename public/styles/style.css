@@ -238,7 +238,12 @@ input.invalid {
 .dark-results-bg {
     background-color: #000 !important;
 }
-
+.ml-auto {
+    margin-left: auto;
+}
+.mr-auto {
+    margin-right: auto;
+}
 /* body {
     font-family: Roboto, sans-serif;
     background-color: var(--light-grey-bg);

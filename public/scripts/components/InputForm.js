@@ -15,8 +15,79 @@ let amountSet = false;
 let rateSet = false;
 let termSet = false;
 let chart = {};
+const s2ab = (s) => {
+    const buf = new ArrayBuffer(s.length);
+    const view = new Uint8Array(buf);
+    for (let i = 0; i < s.length; i++) {
+        view[i] = s.charCodeAt(i) & 0xff;
+    }
+    return buf;
+};
+
 export const InputForm = {
     loadEventListeners: () => {},
+    downloadExcel: (e, res, schedule) => {
+        // data headers
+        const data = [
+            [
+                "Year",
+                "Month",
+                "Interest",
+                "Principal",
+                "Balance",
+                "TotalInterest",
+                "TotalPrincipal",
+            ],
+        ];
+        // add all the data
+        schedule.forEach((item) => {
+            data.push([
+                item.year,
+                item.month,
+                item.interest,
+                item.principal,
+                item.balance,
+                item.totalInterest,
+                item.totalPrincipal,
+            ]);
+        });
+
+        // Create a worksheet
+        const ws = XLSX.utils.aoa_to_sheet(data);
+
+        /*      // Create a line chart object
+        const chart = {
+            type: "line",
+            series: [{ values: { Sheet1: `B2:B${data.length}` } }],
+            categories: [{ values: { Sheet1: "A2:A6" } }],
+        };
+
+        // Add the chart to the worksheet
+        XLSX.utils.book_append_chart(ws, chart); */
+
+        // Create a workbook
+        const wb = XLSX.utils.book_new();
+        XLSX.utils.book_append_sheet(wb, ws, "Sheet1");
+
+        // Generate a binary string from the workbook
+        const excelBinaryString = XLSX.write(wb, {
+            bookType: "xlsx",
+            type: "binary",
+        });
+
+        // Create a Blob from the binary string
+        const blob = new Blob([s2ab(excelBinaryString)], {
+            type: "application/octet-stream",
+        });
+
+        // Create an anchor element for the download
+        const a = document.createElement("a");
+        a.href = URL.createObjectURL(blob);
+        a.download = "sample.xlsx";
+
+        // Simulate a click to trigger the download
+        a.click();
+    },
     submitHandler: (e) => {
         e.preventDefault();
 
@@ -73,8 +144,23 @@ export const InputForm = {
                 scheduleParent.removeChild(scheduleParent.lastChild);
             }
 
+            const downloadExcelButton = document.createElement("a");
+            downloadExcelButton.href = "#";
+            downloadExcelButton.id = "download-excel";
+            downloadExcelButton.classList.add(
+                "btn",
+                "teal",
+                "lighten-3",
+                "color-white",
+                "ml-auto"
+            );
+            downloadExcelButton.textContent = "Download Excel";
+
             scheduleParent.append(
-                ContentHeader.getElement("Amortization Schedule")
+                ContentHeader.getElement(
+                    "Amortization Schedule",
+                    downloadExcelButton
+                )
             );
 
             const amortSchedule = getAmortizedSchedule(loan, interest, term);
@@ -83,7 +169,12 @@ export const InputForm = {
 
             localStorage.setItem("results", JSON.stringify(resObj));
             localStorage.setItem("schedule", JSON.stringify(amortSchedule));
-
+            const downloadExcel = document.getElementById("download-excel");
+            downloadExcel.onclick = (e) => {
+                e.preventDefault();
+                InputForm.downloadExcel(e, resObj, amortSchedule);
+            };
+            downloadExcel.classList.remove("d-none");
             //chartParent.appendChild(Visual.getChartElementContainer());
             setTimeout(() => {
                 Visual.render([

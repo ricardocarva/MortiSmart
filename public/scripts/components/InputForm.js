@@ -83,7 +83,9 @@ export const InputForm = {
         // Create an anchor element for the download
         const a = document.createElement("a");
         a.href = URL.createObjectURL(blob);
-        a.download = "sample.xlsx";
+        a.download = `amortization_schedule_${new Date()
+            .toJSON()
+            .slice(0, 10)}_.xlsx`;
 
         // Simulate a click to trigger the download
         a.click();
@@ -100,6 +102,11 @@ export const InputForm = {
         const loan = Number(document.getElementById("loanAmount").value);
         const interest = Number(document.getElementById("interestRate").value);
         const term = Number(document.getElementById("loanTerm").value);
+
+        // cap term at 50 years regardless of what they put
+        const cap = term <= 50 ? term : 50;
+        document.getElementById("loanTerm").value = cap;
+
         //const extra = document.getElementById("extraPayments").value;
         if (loan && interest && term) {
             const fixedMonthlyPayment = getMonthlyPayments(
@@ -169,6 +176,7 @@ export const InputForm = {
 
             localStorage.setItem("results", JSON.stringify(resObj));
             localStorage.setItem("schedule", JSON.stringify(amortSchedule));
+
             const downloadExcel = document.getElementById("download-excel");
             downloadExcel.onclick = (e) => {
                 e.preventDefault();
@@ -208,6 +216,8 @@ export const InputForm = {
             } else if (inputName == "interestRate") {
                 rateSet = input.value ? true : false;
             } else if (inputName == "loanTerm") {
+                // cap at 50 years
+                if (input.value > 50) input.value = 50;
                 termSet = input.value ? true : false;
             }
             if (amountSet && rateSet && termSet) {

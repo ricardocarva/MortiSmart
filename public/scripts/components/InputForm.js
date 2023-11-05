@@ -163,6 +163,15 @@ export const InputForm = {
             );
             downloadExcelButton.textContent = "Download Excel";
 
+            const img = document.createElement("i");
+            img.classList.add("fa-sharp", "fa-solid", "fa-download", "left");
+
+            //const span = document.createElement("span");
+            // span.textContent = "Download Excel";
+
+            downloadExcelButton.prepend(img);
+            //downloadExcelButton.appendChild(span);
+
             scheduleParent.append(
                 ContentHeader.getElement(
                     "Amortization Schedule",

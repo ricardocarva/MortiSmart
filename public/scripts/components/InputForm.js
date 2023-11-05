@@ -81,6 +81,9 @@ export const InputForm = {
             scheduleParent.appendChild(OutputTable.getElement(amortSchedule));
             const lastPaymentItem = amortSchedule[amortSchedule.length - 1];
 
+            localStorage.setItem("results", JSON.stringify(resObj));
+            localStorage.setItem("schedule", JSON.stringify(amortSchedule));
+
             //chartParent.appendChild(Visual.getChartElementContainer());
             setTimeout(() => {
                 Visual.render([

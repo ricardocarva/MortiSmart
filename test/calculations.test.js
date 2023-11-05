@@ -6,6 +6,7 @@ const {
 } = require("../public/scripts/calculations");
 
 describe("Calulation Test Cases", () => {
+    // confirms getMonthlyPayment properly handles valid data
     test("Get Monthly Payment - Good Data", () => {
         const amount = 300000;
         const rate = 5;
@@ -15,6 +16,7 @@ describe("Calulation Test Cases", () => {
         expect(actual).toBe(expected);
     });
 
+    // confirm getMonthlyPayment properly handles bad data
     test("Get Monthly Payment - Bad Data", () => {
         const amount = "BAD_DATA";
         const rate = 5;
@@ -24,6 +26,7 @@ describe("Calulation Test Cases", () => {
         expect(actual).toBe(expected);
     });
 
+    // confirms getTotalInterest properly handles valid data
     test("Get Total Interest - Good Data", () => {
         const amount = 300000;
         const rate = 5;
@@ -34,6 +37,7 @@ describe("Calulation Test Cases", () => {
         expect(actual).toBe(expected);
     });
 
+    // confirms getTotalInterest properly handles bad data
     test("Get Total Interest - Bad Data", () => {
         const amount = 300000;
         const rate = 5;
@@ -45,6 +49,7 @@ describe("Calulation Test Cases", () => {
         expect(actual).toBe(expected);
     });
 
+    // confirms getTotalAmount properly handles valid data
     test("Get Total Amount Paid - Good Data", () => {
         const amount = 300000;
         const rate = 5;
@@ -61,6 +66,7 @@ describe("Calulation Test Cases", () => {
         expect(actual).toBe(expected);
     });
 
+    // confirms getTotalAmount properly handles bad data
     test("Get Total Amount Paid - Bad Data", () => {
         const amount = 300000;
         const rate = 5;
@@ -78,6 +84,7 @@ describe("Calulation Test Cases", () => {
         expect(actual).toBe(-1);
     });
 
+    // confirms getAmortizationSchedule properly handles valid data
     test("Get Amortization Schedule - Good Data", () => {
         const amount = 300000;
         const rate = 5;
@@ -107,6 +114,7 @@ describe("Calulation Test Cases", () => {
         expect(actualFirst.totalPrincipal).toBe(expectedFirst.totalPrincipal);
     });
 
+    // confirms getAmortizationSchedule properly handles bad data
     test("Get Amortization Schedule - Bad Data", () => {
         const amount = 300000;
         const rate = 5;

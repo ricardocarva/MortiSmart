@@ -1,0 +1,32 @@
+<div class="container">
+  <h3>Connect</h3>
+  <p>Talk to other users of MortiSmart</p>
+
+  <form action="/" method="POST" class="col s12">
+    <div class="row mb-0">
+      <div class="input-field col s12">
+        <textarea id="post-text" class="materialize-textarea"></textarea>
+        <label style="width:100%;" for="post-text">Write your post here</label>
+      </div>
+    </div>
+    <div class="row flex">
+      <button id="post-submit" class="btn btn-login teal lighten-3 m-auto">
+        <i class="fa-solid fa-question left"></i>
+        Submit a post
+      </button>
+    </div>
+  </form>
+
+  <ul id="FORUMLIST">
+    {{#each forumpost}}
+      <ul>
+        {{#each this}}
+          <li>{{creator}}</li>
+          <li>{{createdAt}}</li>
+          <li>{{content}}</li>
+        {{/each}}
+      </ul>
+    {{/each}}
+  </ul>
+</div>
+<script type="module" src="scripts/connect.js"></script>

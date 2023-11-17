@@ -176,7 +176,7 @@ describe("Calulation Test Cases", () => {
             principal: 854.4902484449594,
             balance: 0,
             totalInterest: 188026.59222876708,
-            totalPrincipal: 301906.90449300135,
+            totalPrincipal: 300000.0000000001,
         };
 
         expect(actualLast.year).toBe(expectedLast.year);
@@ -206,5 +206,35 @@ describe("Calulation Test Cases", () => {
 
         expect(actualLast.months).toBe(expectedLast.months);
         expect(actualLast.interest).toBe(expectedLast.interest);
+    });
+
+    test("Get Amortization Schedule Extra Monthly is $0 Payment - Good Data", () => {
+        const amount = 300000;
+        const rate = 5;
+        const term = 30;
+        const extraMonthly = 0;
+        const actual = getAmortizedScheduleExtraMonthly(amount, rate, term, extraMonthly);
+        const expectedLength = 360;
+
+        expect(Array.isArray(actual)).toBe(true);
+        expect(actual.length).toBe(expectedLength);
+        const actualFirst = actual[0];
+        const expectedFirst = {
+            year: 1,
+            month: 1,
+            interest: 1250,
+            principal: 360.46486903641926,
+            balance: 299639.5351309636,
+            totalInterest: 1250,
+            totalPrincipal: 360.46486903641926,
+        };
+
+        expect(actualFirst.year).toBe(expectedFirst.year);
+        expect(actualFirst.month).toBe(expectedFirst.month);
+        expect(actualFirst.interest).toBe(expectedFirst.interest);
+        expect(actualFirst.principal).toBe(expectedFirst.principal);
+        expect(actualFirst.balance).toBe(expectedFirst.balance);
+        expect(actualFirst.totalInterest).toBe(expectedFirst.totalInterest);
+        expect(actualFirst.totalPrincipal).toBe(expectedFirst.totalPrincipal);
     });
 });

@@ -4,6 +4,8 @@ import {
     getTotalInterest,
     getTotalAmountPaid,
     getAmortizedSchedule,
+    getAmortizedScheduleExtraMonthly,
+    getSavingsExtraMonthly,
 } from "../calculations.js";
 import { debounce } from "../utils.js";
 import { Results } from "./Results.js";
@@ -14,6 +16,7 @@ import { Visual } from "./Visual.js";
 let amountSet = false;
 let rateSet = false;
 let termSet = false;
+let monthlySet = false;
 let chart = {};
 const s2ab = (s) => {
     const buf = new ArrayBuffer(s.length);
@@ -102,31 +105,39 @@ export const InputForm = {
         const loan = Number(document.getElementById("loanAmount").value);
         const interest = Number(document.getElementById("interestRate").value);
         const term = Number(document.getElementById("loanTerm").value);
+        const monthly = Number(document.getElementById("extraMonthlyPayment").value);
 
         // cap term at 50 years regardless of what they put
         const cap = term <= 50 ? term : 50;
         document.getElementById("loanTerm").value = cap;
+        console.log(`Extra payment: ${monthly}`);
 
         //const extra = document.getElementById("extraPayments").value;
         if (loan && interest && term) {
+
             const fixedMonthlyPayment = getMonthlyPayments(
                 loan,
                 interest,
                 term
             );
-
-            const totalInterest = getTotalInterest(
+            var totalInterest = getTotalInterest(
                 fixedMonthlyPayment,
                 loan,
                 interest,
                 term
             );
 
+            if (monthly) {
+                totalInterest = totalInterest - getSavingsExtraMonthly(loan, interest, term, monthly)[0].interest;
+            }
+
             const totalAmountPaid = getTotalAmountPaid(loan, totalInterest);
+
             const resObj = {
                 "Monthly Payment": fixedMonthlyPayment,
                 "Total Interest": totalInterest,
                 "Total Amount Paid": totalAmountPaid,
+                "Montly Input": monthly
             };
             //console.log(resObj, "resObject");
 
@@ -178,8 +189,14 @@ export const InputForm = {
                     downloadExcelButton
                 )
             );
+            var amortSchedule = [];
+            if (monthly){
+                amortSchedule = getAmortizedScheduleExtraMonthly(loan, interest, term, monthly);
 
-            const amortSchedule = getAmortizedSchedule(loan, interest, term);
+            }
+            else {
+                amortSchedule = getAmortizedSchedule(loan, interest, term);
+            }
             scheduleParent.appendChild(OutputTable.getElement(amortSchedule));
             const lastPaymentItem = amortSchedule[amortSchedule.length - 1];
 
@@ -218,7 +235,7 @@ export const InputForm = {
         input.type = inputType;
         input.name = inputName;
         input.id = inputName;
-
+        
         input.onkeyup = debounce((e) => {
             if (inputName == "loanAmount") {
                 amountSet = input.value ? true : false;
@@ -229,6 +246,9 @@ export const InputForm = {
                 if (input.value > 50) input.value = 50;
                 termSet = input.value ? true : false;
             }
+             else if (inputName == "extraMonthlyPayment") {
+                monthlySet = input.value ? true : false;
+             }
             if (amountSet && rateSet && termSet) {
                 InputForm.submitHandler(e);
             }
@@ -267,10 +287,18 @@ export const InputForm = {
             "number",
             true
         );
+        const monthlyInput = getInput(
+            "Extra Montly Payment ($):",
+            "extraMonthlyPayment",
+            "number",
+            true
+        );
         amountInput.focus = true;
         form.appendChild(amountInput);
         form.appendChild(rateInput);
         form.appendChild(termsInput);
+        form.appendChild(monthlyInput);
+
         /* form.appendChild(
             getInput("Extra Payments:", "extraPayments", "number")
         ); */

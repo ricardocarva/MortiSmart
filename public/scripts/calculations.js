@@ -100,15 +100,16 @@ export const getAmortizedScheduleExtraMonthly = (loan, interest, term, extraMont
                 interest_rate = loan * mRate;
                 totalInterest += interest_rate;
                 paymentTowards = fixedMonthly - interest_rate;
-                totalPaymentTowardLoan += paymentTowards + extraMonthly;
 
                 if ((paymentTowards + extraMonthly) > loan) {
                     paymentTowards = loan;
                     totalPaymentTowardLoan += paymentTowards;
                     loan = 0;
                 }
-                else
+                else {
+                    totalPaymentTowardLoan += paymentTowards + extraMonthly;
                     loan -= (paymentTowards + extraMonthly);
+                }
 
                 // add result to array of results so we can print the later
                 results.push({

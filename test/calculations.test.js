@@ -200,7 +200,7 @@ describe("Calulation Test Cases", () => {
         expect(Array.isArray(actual)).toBe(true);
         const actualLast = actual[0];
         const expectedLast = {
-            months: 8.75,
+            years: 8.75,
             interest: 91740.76062434158,
         };
 

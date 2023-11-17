@@ -126,19 +126,28 @@ export const InputForm = {
                 term
             );
 
+            var extraSaving = [];
+            var interestSaving = 0.00;
+            var timeSaving = 0.00;
+
             if (monthly) {
-                totalInterest = totalInterest - getSavingsExtraMonthly(loan, interest, term, monthly)[0].interest;
+                extraSaving = getSavingsExtraMonthly(loan, interest, term, monthly)[0];
+                interestSaving = extraSaving.interest
+                timeSaving = extraSaving.years;
+                totalInterest = totalInterest - interestSaving;
             }
             
+            console.log(`Finished ${timeSaving} years or ${timeSaving*12} months earlier`);
+
             const totalAmountPaid = getTotalAmountPaid(loan, totalInterest);
 
             const resObj = {
                 "Monthly Payment": fixedMonthlyPayment,
                 "Total Interest": totalInterest,
                 "Total Amount Paid": totalAmountPaid,
-                "Montly Input": monthly
+                "Interest Saving": interestSaving
             };
-            //console.log(resObj, "resObject");
+            console.log(resObj, "resObject");
 
             // clear previous results
             const resultsParent = document.getElementById("results-container");

@@ -127,7 +127,7 @@ export const getSavingsExtraMonthly = (loan, interest, term, extraMonthly) => {
                 
                 if (loan <= 0) {
                     results.push({
-                        months: ((totalMonths - sumMonths) / 12),
+                        years: ((totalMonths - sumMonths) / 12),
                         interest: interest_paid - totalInterest,
                     });
                     return results;

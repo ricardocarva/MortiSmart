@@ -4,7 +4,6 @@ import {
     getTotalInterest,
     getTotalAmountPaid,
     getAmortizedSchedule,
-    getAmortizedScheduleExtraMonthly,
     getSavingsExtraMonthly,
 } from "../calculations.js";
 import { debounce } from "../utils.js";
@@ -130,7 +129,7 @@ export const InputForm = {
             if (monthly) {
                 totalInterest = totalInterest - getSavingsExtraMonthly(loan, interest, term, monthly)[0].interest;
             }
-
+            
             const totalAmountPaid = getTotalAmountPaid(loan, totalInterest);
 
             const resObj = {
@@ -190,13 +189,10 @@ export const InputForm = {
                 )
             );
             var amortSchedule = [];
-            if (monthly){
-                amortSchedule = getAmortizedScheduleExtraMonthly(loan, interest, term, monthly);
 
-            }
-            else {
-                amortSchedule = getAmortizedSchedule(loan, interest, term);
-            }
+                amortSchedule = getAmortizedSchedule(monthly, loan, interest, term);
+
+  
             scheduleParent.appendChild(OutputTable.getElement(amortSchedule));
             const lastPaymentItem = amortSchedule[amortSchedule.length - 1];
 

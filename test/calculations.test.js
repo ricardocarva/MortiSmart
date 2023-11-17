@@ -3,7 +3,6 @@ const {
     getTotalInterest,
     getTotalAmountPaid,
     getAmortizedSchedule,
-    getAmortizedScheduleExtraMonthly,
     getSavingsExtraMonthly,
 } = require("../public/scripts/calculations");
 
@@ -91,7 +90,8 @@ describe("Calulation Test Cases", () => {
         const amount = 300000;
         const rate = 5;
         const term = 30;
-        const actual = getAmortizedSchedule(amount, rate, term);
+        const extraMonthly = 0;
+        const actual = getAmortizedSchedule(extraMonthly, amount, rate, term);
         const expectedLength = 360;
 
         expect(Array.isArray(actual)).toBe(true);
@@ -133,7 +133,7 @@ describe("Calulation Test Cases", () => {
         const rate = 5;
         const term = 30;
         const extraMonthly = 300;
-        const actual = getAmortizedScheduleExtraMonthly(amount, rate, term, extraMonthly);
+        const actual = getAmortizedSchedule(extraMonthly, amount, rate, term);
         const expectedLength = 256;
 
         expect(Array.isArray(actual)).toBe(true);
@@ -163,7 +163,7 @@ describe("Calulation Test Cases", () => {
         const rate = 5;
         const term = 30;
         const extraMonthly = 300;
-        const actual = getAmortizedScheduleExtraMonthly(amount, rate, term, extraMonthly);
+        const actual = getAmortizedSchedule(extraMonthly, amount, rate, term);
         const expectedLength = 256;
 
         expect(Array.isArray(actual)).toBe(true);
@@ -213,7 +213,7 @@ describe("Calulation Test Cases", () => {
         const rate = 5;
         const term = 30;
         const extraMonthly = 0;
-        const actual = getAmortizedScheduleExtraMonthly(amount, rate, term, extraMonthly);
+        const actual = getAmortizedSchedule(extraMonthly, amount, rate, term);
         const expectedLength = 360;
 
         expect(Array.isArray(actual)).toBe(true);

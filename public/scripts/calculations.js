@@ -46,47 +46,9 @@ export const getTotalAmountPaid = (loan, totalInterest) => {
     }
 };
 
-export const getAmortizedSchedule = (loan, interest, term) => {
-    if (isNumber(loan) && isNumber(interest) && isNumber(term)) {
-        const fixedMonthly = getMonthlyPayments(loan, interest, term);
-        let interest_rate = 0.0;
-        let paymentTowards = 0.0;
-        let totalInterest = 0.0;
-        let totalPaymentTowardLoan = 0.0;
-
-        const mRate = interest / (12 * 100);
-        const results = [];
-
-        for (let year = 1; year <= term; year++) {
-            for (let month = 1; month <= 12; month++) {
-                interest_rate = loan * mRate;
-                totalInterest += interest_rate;
-                paymentTowards = fixedMonthly - interest_rate;
-                totalPaymentTowardLoan += paymentTowards;
-                loan -= paymentTowards;
-
-                // add result to array of results so we can print the later
-                results.push({
-                    year: year,
-                    month: month,
-                    interest: interest_rate,
-                    principal: paymentTowards,
-                    balance: loan,
-                    totalInterest: totalInterest,
-                    totalPrincipal: totalPaymentTowardLoan,
-                });
-            }
-        }
-        return results;
-    } else {
-        return [];
-    }
-};
-
-export const getAmortizedScheduleExtraMonthly = (loan, interest, term, extraMonthly) => {
+export const getAmortizedSchedule = (extraMonthly = 0, loan, interest, term) => {
     if (isNumber(loan) && isNumber(interest) && isNumber(term) && isNumber(extraMonthly)) {
         const fixedMonthly = getMonthlyPayments(loan, interest, term);
-
         let interest_rate = 0.0;
         let paymentTowards = 0.0;
         let totalInterest = 0.0;
@@ -110,7 +72,6 @@ export const getAmortizedScheduleExtraMonthly = (loan, interest, term, extraMont
                     totalPaymentTowardLoan += paymentTowards + extraMonthly;
                     loan -= (paymentTowards + extraMonthly);
                 }
-
                 // add result to array of results so we can print the later
                 results.push({
                     year: year,

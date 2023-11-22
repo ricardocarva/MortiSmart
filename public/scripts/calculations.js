@@ -46,8 +46,8 @@ export const getTotalAmountPaid = (loan, totalInterest) => {
     }
 };
 
-export const getAmortizedSchedule = (loan, interest, term) => {
-    if (isNumber(loan) && isNumber(interest) && isNumber(term)) {
+export const getAmortizedSchedule = (extraMonthly = 0, loan, interest, term) => {
+    if (isNumber(loan) && isNumber(interest) && isNumber(term) && isNumber(extraMonthly)) {
         const fixedMonthly = getMonthlyPayments(loan, interest, term);
         let interest_rate = 0.0;
         let paymentTowards = 0.0;
@@ -62,9 +62,16 @@ export const getAmortizedSchedule = (loan, interest, term) => {
                 interest_rate = loan * mRate;
                 totalInterest += interest_rate;
                 paymentTowards = fixedMonthly - interest_rate;
-                totalPaymentTowardLoan += paymentTowards;
-                loan -= paymentTowards;
 
+                if ((paymentTowards + extraMonthly) > loan) {
+                    paymentTowards = loan;
+                    totalPaymentTowardLoan += paymentTowards;
+                    loan = 0;
+                }
+                else {
+                    totalPaymentTowardLoan += paymentTowards + extraMonthly;
+                    loan -= (paymentTowards + extraMonthly);
+                }
                 // add result to array of results so we can print the later
                 results.push({
                     year: year,
@@ -75,6 +82,57 @@ export const getAmortizedSchedule = (loan, interest, term) => {
                     totalInterest: totalInterest,
                     totalPrincipal: totalPaymentTowardLoan,
                 });
+                if (loan <= 0) {
+                    return results;
+                }
+            }
+        }
+        return results;
+    } else {
+        return [];
+    }
+};
+
+export const getSavingsExtraMonthly = (loan, interest, term, extraMonthly) => {
+    if (isNumber(loan) && isNumber(interest) && isNumber(term) && isNumber(extraMonthly)) {
+        const fixedMonthly = getMonthlyPayments(loan, interest, term);
+
+        const interest_paid = getTotalInterest(fixedMonthly, loan, interest, term);
+        
+        let interest_rate = 0.0;
+        let paymentTowards = 0.0;
+        let totalInterest = 0.0;
+        let totalPaymentTowardLoan = 0.0;
+        let sumMonths = 0;
+        let totalMonths = term * 12;
+        const mRate = interest / (12 * 100);
+        const results = [];
+
+        for (let year = 1; year <= term; year++) {
+            for (let month = 1; month <= 12; month++) {
+                interest_rate = loan * mRate;
+                totalInterest += interest_rate;
+                paymentTowards = fixedMonthly - interest_rate;
+                totalPaymentTowardLoan += paymentTowards + extraMonthly;
+
+                if ((paymentTowards + extraMonthly) > loan) {
+                    paymentTowards = loan;
+                    totalPaymentTowardLoan += paymentTowards;
+                    loan = 0;
+                }
+                else
+                    loan -= (paymentTowards + extraMonthly);
+
+                // add result to array of results so we can print the later
+                
+                if (loan <= 0) {
+                    results.push({
+                        years: ((totalMonths - sumMonths) / 12),
+                        interest: interest_paid - totalInterest,
+                    });
+                    return results;
+                }
+                sumMonths++;
             }
         }
         return results;

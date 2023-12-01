@@ -2,6 +2,8 @@
   <h3>Connect</h3>
   <p>Talk to other users of MortiSmart</p>
 
+  <script>Handlebars.logger.level = 0;</script>
+
   <form action="/" method="POST" class="col s12">
     <div class="row mb-0">
       <div class="input-field col s12">
@@ -19,13 +21,36 @@
 
   <ul id="FORUMLIST">
     {{#each forumpost}}
-      <ul>
-        {{#each this}}
-          <li>{{creator}}</li>
-          <li>{{createdAt}}</li>
-          <li>{{content}}</li>
-        {{/each}}
-      </ul>
+      <div id={{this._id}}>
+        <ul>
+          <li>{{this.creator}}</li>
+          <li>{{this.createdAt}}</li>
+          <li>{{this.content}}</li>
+        </ul>
+        <p>--------------------REPLIES HERE--------------------</p>
+        {{#if this.replies}}
+          {{#each this.replies}}
+            <ul>
+              <li>{{this.creator}}</li>
+              <li>{{this.createdAt}}</li>
+              <li>{{this.content}}</li>
+            </ul>
+          {{/each}}
+        {{/if}}
+        <div class="POST_REPLY">
+          <div class="input-field col s12">
+            <textarea id="reply-text" class="materialize-textarea"></textarea>
+            <label style="width:100%;" for="reply-text">Write your reply here</label>
+          </div>
+          <button
+            id="reply-submit"
+            class="REPLYBUTTON btn btn-login teal lighten-3 m-auto"
+          >
+            <i class="fa-solid fa-question left"></i>
+            Submit a reply
+          </button>
+        </div>
+      </div>
     {{/each}}
   </ul>
 </div>

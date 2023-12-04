@@ -14,12 +14,7 @@ describe("Calulation Test Cases", () => {
         const term = 30;
         const actual = getMonthlyPayments(amount, rate, term);
         const expected = 1610.4648690364193;
-        // expect(actual).toBe(expected);
-        // Set precision to 10 decimal places
-        const roundedActual = parseFloat(actual.toFixed(10));
-        const roundedExpected = parseFloat(expected.toFixed(10));
-
-        expect(roundedActual).toBe(roundedExpected);
+        expect(actual).toBe(expected);
     });
 
     // confirm getMonthlyPayment properly handles bad data
@@ -40,11 +35,7 @@ describe("Calulation Test Cases", () => {
         const monthlyPayment = getMonthlyPayments(amount, rate, term);
         const actual = getTotalInterest(monthlyPayment, amount, rate, term);
         const expected = 279767.35285310866;
-        // expect(actual).toBe(expected);
-        const roundedActual = parseFloat(actual.toFixed(10));
-        const roundedExpected = parseFloat(expected.toFixed(10));
-
-        expect(roundedActual).toBe(roundedExpected);
+        expect(actual).toBe(expected);
     });
 
     // confirms getTotalInterest properly handles bad data
@@ -73,11 +64,7 @@ describe("Calulation Test Cases", () => {
         );
         const actual = getTotalAmountPaid(amount, totalInterest);
         const expected = 579767.3528531087;
-        // expect(actual).toBe(expected);
-        const roundedActual = parseFloat(actual.toFixed(10));
-        const roundedExpected = parseFloat(expected.toFixed(10));
-
-        expect(roundedActual).toBe(roundedExpected);
+        expect(actual).toBe(expected);
     });
 
     // confirms getTotalAmount properly handles bad data
@@ -120,23 +107,13 @@ describe("Calulation Test Cases", () => {
             totalPrincipal: 360.46486903641926,
         };
 
-        // Set precision to 10 decimal places for principal, balance, and totalPrincipal
-        const roundedActualPrincipal = parseFloat(actualFirst.principal.toFixed(10));
-        const roundedExpectedPrincipal = parseFloat(expectedFirst.principal.toFixed(10));
-
-        const roundedActualBalance = parseFloat(actualFirst.balance.toFixed(10));
-        const roundedExpectedBalance = parseFloat(expectedFirst.balance.toFixed(10));
-
-        const roundedActualTotalPrincipal = parseFloat(actualFirst.totalPrincipal.toFixed(10));
-        const roundedExpectedTotalPrincipal = parseFloat(expectedFirst.totalPrincipal.toFixed(10));
-
         expect(actualFirst.year).toBe(expectedFirst.year);
         expect(actualFirst.month).toBe(expectedFirst.month);
         expect(actualFirst.interest).toBe(expectedFirst.interest);
-        expect(roundedActualPrincipal).toBe(roundedExpectedPrincipal);
-        expect(roundedActualBalance).toBe(roundedExpectedBalance);
+        expect(actualFirst.principal).toBe(expectedFirst.principal);
+        expect(actualFirst.balance).toBe(expectedFirst.balance);
         expect(actualFirst.totalInterest).toBe(expectedFirst.totalInterest);
-        expect(roundedActualTotalPrincipal).toBe(roundedExpectedTotalPrincipal);
+        expect(actualFirst.totalPrincipal).toBe(expectedFirst.totalPrincipal);
     });
 
     // confirms getAmortizationSchedule properly handles bad data

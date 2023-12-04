@@ -41,7 +41,7 @@ jobs:
           command: pwd && find -name "index.html"
       - run:
           name: Check Links
-          command: blcl -ro /templates
+          command: blcl -ro /src
 
 # Orchestrate jobs using workflows
 # See: https://circleci.com/docs/configuration-reference/#workflows

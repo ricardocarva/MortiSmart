@@ -66,6 +66,7 @@ app.use(express.static("public"));
 // routes
 app.use("/", require("./routes/index"));
 app.use("/auth", require("./routes/auth"));
+app.use("/connect", require("./routes/connect"));
 
 // listen for incoming requests on specified port
 const PORT = process.env.PORT || 3000;

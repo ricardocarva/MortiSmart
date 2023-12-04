@@ -18,7 +18,14 @@ jobs:
           command: sudo apt-get install -y npm
       - run:
           name: Install Dependencies
-          command: npm install --save-dev -y jest @babel/preset-env
+          command: |
+              npm install --save-dev -y \
+                "@babel/core@^7.23.2" \
+                "@babel/preset-env@^7.23.2" \
+                "@babel/preset-modules@^0.1.6" \
+                "babel-jest@^29.7.0" \
+                "cross-env@^7.0.3" \
+                "jest@^27.0.6
       - run:
           name: npx jest Test
           command: npx jest

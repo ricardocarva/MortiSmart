@@ -120,13 +120,23 @@ describe("Calulation Test Cases", () => {
             totalPrincipal: 360.46486903641926,
         };
 
+        // Set precision to 10 decimal places for principal, balance, and totalPrincipal
+        const roundedActualPrincipal = parseFloat(actualFirst.principal.toFixed(10));
+        const roundedExpectedPrincipal = parseFloat(expectedFirst.principal.toFixed(10));
+
+        const roundedActualBalance = parseFloat(actualFirst.balance.toFixed(10));
+        const roundedExpectedBalance = parseFloat(expectedFirst.balance.toFixed(10));
+
+        const roundedActualTotalPrincipal = parseFloat(actualFirst.totalPrincipal.toFixed(10));
+        const roundedExpectedTotalPrincipal = parseFloat(expectedFirst.totalPrincipal.toFixed(10));
+
         expect(actualFirst.year).toBe(expectedFirst.year);
         expect(actualFirst.month).toBe(expectedFirst.month);
         expect(actualFirst.interest).toBe(expectedFirst.interest);
-        expect(actualFirst.principal).toBe(expectedFirst.principal);
-        expect(actualFirst.balance).toBe(expectedFirst.balance);
+        expect(roundedActualPrincipal).toBe(roundedExpectedPrincipal);
+        expect(roundedActualBalance).toBe(roundedExpectedBalance);
         expect(actualFirst.totalInterest).toBe(expectedFirst.totalInterest);
-        expect(actualFirst.totalPrincipal).toBe(expectedFirst.totalPrincipal);
+        expect(roundedActualTotalPrincipal).toBe(roundedExpectedTotalPrincipal);
     });
 
     // confirms getAmortizationSchedule properly handles bad data

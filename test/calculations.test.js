@@ -119,14 +119,14 @@ describe("Calulation Test Cases", () => {
         };
 
         // Round to a maximum of 6 decimal places
-        const roundedActualPrincipal = parseFloat(actual.toFixed(6));
-        const roundedExpectedPrincipal = parseFloat(expected.toFixed(6));
+        const roundedActualPrincipal = parseFloat(actualLast.principal.toFixed(6));
+        const roundedExpectedPrincipal = parseFloat(expectedLast.principal.toFixed(6));
 
-        const roundedActualtoTalInterest = parseFloat(actual.toFixed(6));
-        const roundedExpectedTotalInterest = parseFloat(expected.toFixed(6));
+        const roundedActualtoTalInterest = parseFloat(actualLast.totalInterest.toFixed(6));
+        const roundedExpectedTotalInterest = parseFloat(expectedLast.totalInterest.toFixed(6));
 
-        const roundedActualTotalPrincipal = parseFloat(actual.toFixed(6));
-        const roundedExpectedTotalPrincipal = parseFloat(expected.toFixed(6));
+        const roundedActualTotalPrincipal = parseFloat(actualLast.totalPrincipal.toFixed(6));
+        const roundedExpectedTotalPrincipal = parseFloat(expectedLast.totalPrincipal.toFixed(6));
 
         expect(actualFirst.year).toBe(expectedFirst.year);
         expect(actualFirst.month).toBe(expectedFirst.month);
@@ -171,14 +171,14 @@ describe("Calulation Test Cases", () => {
         };
 
         // Round to a maximum of 6 decimal places
-        const roundedActualPrincipal = parseFloat(actual.toFixed(6));
-        const roundedExpectedPrincipal = parseFloat(expected.toFixed(6));
+        const roundedActualPrincipal = parseFloat(actualLast.principal.toFixed(6));
+        const roundedExpectedPrincipal = parseFloat(expectedLast.principal.toFixed(6));
 
-        const roundedActualtoTalInterest = parseFloat(actual.toFixed(6));
-        const roundedExpectedTotalInterest = parseFloat(expected.toFixed(6));
+        const roundedActualtoTalInterest = parseFloat(actualLast.totalInterest.toFixed(6));
+        const roundedExpectedTotalInterest = parseFloat(expectedLast.totalInterest.toFixed(6));
 
-        const roundedActualTotalPrincipal = parseFloat(actual.toFixed(6));
-        const roundedExpectedTotalPrincipal = parseFloat(expected.toFixed(6));
+        const roundedActualTotalPrincipal = parseFloat(actualLast.totalPrincipal.toFixed(6));
+        const roundedExpectedTotalPrincipal = parseFloat(expectedLast.totalPrincipal.toFixed(6));
 
         expect(actualFirst.year).toBe(expectedFirst.year);
         expect(actualFirst.month).toBe(expectedFirst.month);
@@ -210,23 +210,23 @@ describe("Calulation Test Cases", () => {
             totalPrincipal: 300000.0000000001,
         };
 
-            // Round to a maximum of 6 decimal places
-            const roundedActualPrincipal = parseFloat(actual.toFixed(6));
-            const roundedExpectedPrincipal = parseFloat(expected.toFixed(6));
-    
-            const roundedActualtoTalInterest = parseFloat(actual.toFixed(6));
-            const roundedExpectedTotalInterest = parseFloat(expected.toFixed(6));
-    
-            const roundedActualTotalPrincipal = parseFloat(actual.toFixed(6));
-            const roundedExpectedTotalPrincipal = parseFloat(expected.toFixed(6));
-    
-            expect(actualFirst.year).toBe(expectedFirst.year);
-            expect(actualFirst.month).toBe(expectedFirst.month);
-            expect(actualFirst.interest).toBe(expectedFirst.interest);
-            expect(roundedActualPrincipal).toBe(roundedExpectedPrincipal);
-            expect(actualFirst.balance).toBe(expectedFirst.balance);
-            expect(roundedActualtoTalInterest).toBe(roundedExpectedTotalInterest);
-            expect(roundedActualTotalPrincipal).toBe(roundedExpectedTotalPrincipal);
+        // Round to a maximum of 6 decimal places
+        const roundedActualPrincipal = parseFloat(actualLast.principal.toFixed(6));
+        const roundedExpectedPrincipal = parseFloat(expectedLast.principal.toFixed(6));
+
+        const roundedActualtoTalInterest = parseFloat(actualLast.totalInterest.toFixed(6));
+        const roundedExpectedTotalInterest = parseFloat(expectedLast.totalInterest.toFixed(6));
+
+        const roundedActualTotalPrincipal = parseFloat(actualLast.totalPrincipal.toFixed(6));
+        const roundedExpectedTotalPrincipal = parseFloat(expectedLast.totalPrincipal.toFixed(6));
+
+        expect(actualFirst.year).toBe(expectedFirst.year);
+        expect(actualFirst.month).toBe(expectedFirst.month);
+        expect(actualFirst.interest).toBe(expectedFirst.interest);
+        expect(roundedActualPrincipal).toBe(roundedExpectedPrincipal);
+        expect(actualFirst.balance).toBe(expectedFirst.balance);
+        expect(roundedActualtoTalInterest).toBe(roundedExpectedTotalInterest);
+        expect(roundedActualTotalPrincipal).toBe(roundedExpectedTotalPrincipal);
     });
 
     test("Get Savings Extra Monthly Payment Last - Good Data", () => {
@@ -271,14 +271,14 @@ describe("Calulation Test Cases", () => {
         };
 
         // Round to a maximum of 6 decimal places
-        const roundedActualPrincipal = parseFloat(actual.toFixed(6));
-        const roundedExpectedPrincipal = parseFloat(expected.toFixed(6));
+        const roundedActualPrincipal = parseFloat(actualLast.principal.toFixed(6));
+        const roundedExpectedPrincipal = parseFloat(expectedLast.principal.toFixed(6));
 
-        const roundedActualtoTalInterest = parseFloat(actual.toFixed(6));
-        const roundedExpectedTotalInterest = parseFloat(expected.toFixed(6));
+        const roundedActualtoTalInterest = parseFloat(actualLast.totalInterest.toFixed(6));
+        const roundedExpectedTotalInterest = parseFloat(expectedLast.totalInterest.toFixed(6));
 
-        const roundedActualTotalPrincipal = parseFloat(actual.toFixed(6));
-        const roundedExpectedTotalPrincipal = parseFloat(expected.toFixed(6));
+        const roundedActualTotalPrincipal = parseFloat(actualLast.totalPrincipal.toFixed(6));
+        const roundedExpectedTotalPrincipal = parseFloat(expectedLast.totalPrincipal.toFixed(6));
 
         expect(actualFirst.year).toBe(expectedFirst.year);
         expect(actualFirst.month).toBe(expectedFirst.month);

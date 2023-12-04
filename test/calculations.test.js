@@ -216,11 +216,11 @@ describe("Calulation Test Cases", () => {
         const roundedExpectedTotalPrincipal = parseFloat(expectedLast.totalPrincipal.toFixed(6));
 
         // Perform the expectations with rounded values
-        expect(actualFirst.year).toBe(expectedFirst.year);
-        expect(actualFirst.month).toBe(expectedFirst.month);
-        expect(actualFirst.interest).toBe(expectedFirst.interest);
+        expect(actualLast.year).toBe(expectedLast.year);
+        expect(actualLast.month).toBe(expectedLast.month);
+        expect(actualLast.interest).toBe(expectedLast.interest);
         expect(roundedActualPrincipal).toBe(roundedExpectedPrincipal);
-        expect(actualFirst.balance).toBe(expectedFirst.balance);
+        expect(actualLast.balance).toBe(expectedLast.balance);
         expect(roundedActualTotalInterest).toBe(roundedExpectedTotalInterest);
         expect(roundedActualTotalPrincipal).toBe(roundedExpectedTotalPrincipal);
     });

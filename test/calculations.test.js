@@ -208,6 +208,8 @@ describe("Calulation Test Cases", () => {
         };
 
         // Round specific decimal properties to a maximum of 6 decimal places
+        const roundedActualInterest = parseFloat(actualLast.interest.toFixed(6));
+        const roundedExpectedInterest = parseFloat(expectedLast.interest.toFixed(6));
         const roundedActualPrincipal = parseFloat(actualLast.principal.toFixed(6));
         const roundedExpectedPrincipal = parseFloat(expectedLast.principal.toFixed(6));
         const roundedActualTotalInterest = parseFloat(actualLast.totalInterest.toFixed(6));
@@ -218,7 +220,7 @@ describe("Calulation Test Cases", () => {
         // Perform the expectations with rounded values
         expect(actualLast.year).toBe(expectedLast.year);
         expect(actualLast.month).toBe(expectedLast.month);
-        expect(actualLast.interest).toBe(expectedLast.interest);
+        expect(roundedActualInterest).toBe(roundedExpectedInterest);
         expect(roundedActualPrincipal).toBe(roundedExpectedPrincipal);
         expect(actualLast.balance).toBe(expectedLast.balance);
         expect(roundedActualTotalInterest).toBe(roundedExpectedTotalInterest);

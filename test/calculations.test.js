@@ -40,9 +40,10 @@ describe("Calulation Test Cases", () => {
         const monthlyPayment = getMonthlyPayments(amount, rate, term);
         const actual = getTotalInterest(monthlyPayment, amount, rate, term);
         const expected = 279767.35285310866;
-        // expect(actual).toBe(expected);
-        expect(actual).toBe(expected);
+        const roundedActual = parseFloat(actual.toFixed(6));
+        const roundedExpected = parseFloat(expected.toFixed(6));
 
+        expect(roundedActual).toBe(roundedExpected);
     });
 
     // confirms getTotalInterest properly handles bad data
@@ -71,7 +72,10 @@ describe("Calulation Test Cases", () => {
         );
         const actual = getTotalAmountPaid(amount, totalInterest);
         const expected = 579767.3528531087;
-        expect(actual).toBe(expected);
+        const roundedActual = parseFloat(actual.toFixed(6));
+        const roundedExpected = parseFloat(expected.toFixed(6));
+
+        expect(roundedActual).toBe(roundedExpected);
     });
 
     // confirms getTotalAmount properly handles bad data

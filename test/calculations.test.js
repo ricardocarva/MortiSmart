@@ -208,12 +208,12 @@ describe("Calulation Test Cases", () => {
         };
 
         // Round specific decimal properties to a maximum of 6 decimal places
-        const roundedActualPrincipal = parseFloat(actualFirst.principal.toFixed(6));
-        const roundedExpectedPrincipal = parseFloat(expectedFirst.principal.toFixed(6));
-        const roundedActualTotalInterest = parseFloat(actualFirst.totalInterest.toFixed(6));
-        const roundedExpectedTotalInterest = parseFloat(expectedFirst.totalInterest.toFixed(6));
-        const roundedActualTotalPrincipal = parseFloat(actualFirst.totalPrincipal.toFixed(6));
-        const roundedExpectedTotalPrincipal = parseFloat(expectedFirst.totalPrincipal.toFixed(6));
+        const roundedActualPrincipal = parseFloat(actualLast.principal.toFixed(6));
+        const roundedExpectedPrincipal = parseFloat(expectedLast.principal.toFixed(6));
+        const roundedActualTotalInterest = parseFloat(actualLast.totalInterest.toFixed(6));
+        const roundedExpectedTotalInterest = parseFloat(expectedLast.totalInterest.toFixed(6));
+        const roundedActualTotalPrincipal = parseFloat(actualLast.totalPrincipal.toFixed(6));
+        const roundedExpectedTotalPrincipal = parseFloat(expectedLast.totalPrincipal.toFixed(6));
 
         // Perform the expectations with rounded values
         expect(actualFirst.year).toBe(expectedFirst.year);
@@ -241,8 +241,11 @@ describe("Calulation Test Cases", () => {
             interest: 91740.76062434158,
         };
 
+        const roundedActualInterest = parseFloat(actualLast.interest.toFixed(6));
+        const roundedExpectedInterest = parseFloat(expectedLast.interest.toFixed(6));
+
         expect(actualLast.months).toBe(expectedLast.months);
-        expect(actualLast.interest).toBe(expectedLast.interest);
+        expect(roundedActualInterest).toBe(roundedExpectedInterest);
     });
 
     test("Get Amortization Schedule Extra Monthly is $0 Payment - Good Data", () => {

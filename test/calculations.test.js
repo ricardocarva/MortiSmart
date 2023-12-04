@@ -59,10 +59,10 @@ describe("Calulation Test Cases", () => {
     });
 
     // confirms getTotalAmount properly handles valid data
-    test("Get Total Amount Paid - Good Data", () => {
+    test("Get Total Amount Paid 2.0 - Good Data", () => {
         const amount = 300000;
         const rate = 5;
-        const term = 30;
+        const term = 15;
         const monthlyPayment = getMonthlyPayments(amount, rate, term);
         const totalInterest = getTotalInterest(
             monthlyPayment,
@@ -71,12 +71,14 @@ describe("Calulation Test Cases", () => {
             term
         );
         const actual = getTotalAmountPaid(amount, totalInterest);
-        const expected = 579767.3528531087;
+        const expected = 427028.55844;
         const roundedActual = parseFloat(actual.toFixed(6));
         const roundedExpected = parseFloat(expected.toFixed(6));
 
         expect(roundedActual).toBe(roundedExpected);
     });
+
+
 
     // confirms getTotalAmount properly handles bad data
     test("Get Total Amount Paid - Bad Data", () => {

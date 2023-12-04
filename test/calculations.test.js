@@ -246,9 +246,33 @@ describe("Calulation Test Cases", () => {
         const roundedActualInterest = parseFloat(actualLast.interest.toFixed(6));
         const roundedExpectedInterest = parseFloat(expectedLast.interest.toFixed(6));
 
-        expect(actualLast.months).toBe(expectedLast.months);
+        expect(actualLast.years).toBe(expectedLast.years);
         expect(roundedActualInterest).toBe(roundedExpectedInterest);
     });
+
+    test("Get Savings Extra Monthly Payment Last 2.0 - Good Data", () => {
+        const amount = 300000;
+        const rate = 5;
+        const term = 30;
+        const extraMonthly = 450;
+        const actual = getSavingsExtraMonthly(amount, rate, term, extraMonthly);
+
+        console.log(actual);
+
+        expect(Array.isArray(actual)).toBe(true);
+        const actualLast = actual[0];
+        const expectedLast = {
+            years: 11.333333333333334,
+            interest: 117387.385202,
+        };
+
+        const roundedActualInterest = parseFloat(actualLast.interest.toFixed(6));
+        const roundedExpectedInterest = parseFloat(expectedLast.interest.toFixed(6));
+
+        expect(actualLast.years).toBe(expectedLast.years);
+        expect(roundedActualInterest).toBe(roundedExpectedInterest);
+    });
+
 
     test("Get Amortization Schedule Extra Monthly is $0 Payment - Good Data", () => {
         const amount = 300000;

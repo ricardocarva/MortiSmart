@@ -1,0 +1,38 @@
+<h3>Mortismart</h3>
+<div class="divider"></div>
+<div class="messages">
+    {{#each messages}}
+    <div class="{{type}}">
+        {{message}}
+    </div>
+    {{/each}}
+</div>
+<h4></h4>
+<div class="section">
+    <form action="/register" method="POST">
+        <div class="row">
+            <div class="input-field col s12">
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" class="validate" required>
+            </div>
+        </div>
+        <div class="row">
+            <div class="input-field col s12">
+                <label for="password">Password:</label>
+                <input type="password" id="password" name="password" class="validate" required>
+            </div>
+        </div>
+        <div class="row">
+            <div class="input-field col s12">
+                <label for="confirmPassword">Confirm Password:</label>
+                <input type="password" id="confirmPassword" name="confirmPassword" required>
+            </div>
+        </div>
+        <div class="row">
+            <button class="btn btn-login light-blue lighten-3" type="submit"><i
+                    class="fa-solid fa-user-plus left"></i>Register Account</button>
+        </div>
+    </form>
+    <a href="/" class="btn grey lighten-1"><i class="fa-solid fa-backward-step left mr-15"></i> back</a>
+
+</div>

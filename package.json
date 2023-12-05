@@ -24,6 +24,7 @@
     "moment": "^2.29.4",
     "mongoose": "^7.6.1",
     "morgan": "^1.10.0",
+    "newsapi": "^2.4.1",
     "openai": "^4.12.1",
     "passport": "^0.6.0",
     "passport-google-oauth20": "^2.0.0",

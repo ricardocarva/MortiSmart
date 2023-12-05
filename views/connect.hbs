@@ -25,14 +25,33 @@
           <i class="fa-solid fa-question left"></i>
           Submit a post
         </button>
+        
       </div>
-    
+      <div id="newpost-progress-row" class="news-row row mb-0 d-none">
+          <div id="newpost-progress" class="progress m-0">
+              <div class="indeterminate"></div>
+          </div>
+      </div>
   </form>
   </div>
   </div>
-  <div id="forum-container" class="container">
+  <div class="container card mx-auto">
+    <div class="content-header  mx-auto light-container-border light-mode row m-0 align">
+      All Posts
+       <button id="refreshPost" style="width:48px;" class="btn btn-login teal lighten-3 m-auto right">
+          <i id="refreshPostIcon" class="fa-solid fa-refresh right"></i>
+      </button>
+    </div>
+    <div id="post-progress-row" class="news-row row mb-0">
+        <div id="post-progress" class="progress m-0">
+            <div class="indeterminate"></div>
+        </div>
+    </div>
+     <div id="forum-container">
 
+    </div>
   </div>
+ 
  
 </div>
 <script type="module" src="scripts/connect.js"></script>

@@ -108,13 +108,12 @@ const getArticles = async () => {
         if (sources.length > 50) {
             sources = sources.slice(0, 50);
         }
-        console.log("Sources:", sources);
 
         let res = "<div id='news-list'>";
         sources.forEach((source) => {
             res += `<div class="card news-item m-0 mb-15 ">
             <div class="content-header light-container-border light-mode">${source.title}</div>
-            <a href=${source.url}>
+            <a href=${source.url} target='_blank'>
                 <img class="news-item-img" src=${source.urlToImage} alt=${source.description}>
             </a>    
             <div class="card-content news-content light-container-border">
@@ -123,7 +122,7 @@ const getArticles = async () => {
             </div>`;
         });
         res += "</div>";
-        console.log(res);
+
         return res;
     } catch (error) {
         // Handle error

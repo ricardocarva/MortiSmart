@@ -1,0 +1,40 @@
+<div class="container">
+
+   {{!--  <div class="row flex"> --}}
+        <h4>Dashboard </h4>
+
+      {{!--   <div class="switch right">
+            <label>
+                <i class="fa-solid fa-sun"></i>
+                <input type="checkbox">
+                <span class="lever"></span>
+                <i class="fa-solid fa-moon"></i>
+            </label>
+        </div> --}}
+    {{!-- </div>
+    <div class="row flex"> --}}
+        {{#if data.username}}
+        <p>Welcome: {{data.username}}</p>
+        {{else}}
+        <p>Welcome</p>
+        {{/if}}</div>
+    
+</div>
+
+<div id="main-container" class="flex justify wrap m-auto">
+    <div class="flex w-full space-between">
+        <div id="terms-container" class="card flex-1 light-mode light-container-border light-container-bg m-auto"></div>
+        <div id="results-container"
+            class="card flex-2 d-none light-mode light-container-border light-container-bg m-15">
+        </div>
+        <div id="visual-container" class="card d-none flex-1 light-mode light-container-border light-container-bg m-15">
+            <canvas id="chart-container"></canvas>
+        </div>
+    </div>
+    <div class="flex w-full justify">
+        <div id="schedule-container"
+            class="card flex-2 mw-inherit mt-none d-none light-mode light-container-border light-container-bg m-15">
+        </div>
+    </div>
+   
+</div>

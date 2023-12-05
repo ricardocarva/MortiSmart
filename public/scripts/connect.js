@@ -40,6 +40,7 @@ const submitReply = async (e) => {
     console.log(replyParent, posttext);
     if (replyParent && posttext) {
         console.log("reply valid");
+
         fetch("http://localhost:3000/connect/reply", {
             method: "POST",
             headers: {
@@ -50,10 +51,56 @@ const submitReply = async (e) => {
                 thread: posttext,
             }),
         })
-            .then((res) => console.log(res.json()))
+            .then((res) => {
+                axios
+                    .get(
+                        `http://localhost:3000/connect/get-replies?postId=${replyParent}`
+                    )
+                    .then((response) => {
+                        console.log("Response:", response.data);
+                        //console.log(res.json()))
+                        const parent = response.data.replies[0].parent;
+                        const replySection = document.getElementById(
+                            `reply_list_${parent}`
+                        );
+                        let html = "";
+                        response.data.replies.forEach((reply) => {
+                            html += buildReplyHtml(reply);
+                        });
+
+                        html += ` <div class="POST_REPLY center">
+                        <div class="input-field col s12 mb-0 p-1">
+                          <textarea id="reply-text" class="materialize-textarea"></textarea>
+                          <label style="width:100%;" for="reply-text">Write your reply here</label>
+                        </div>
+                        <button
+                          id="reply-submit"
+                          class="REPLYBUTTON btn btn-login teal lighten-3 m-auto mb-15"
+                          threadid="${parent}"
+                        >
+                          <i class="fa-solid fa-question left"></i>
+                          Submit a reply
+                        </button>
+                      </div></div></div>`;
+                        replySection.innerHTML = html;
+                    })
+                    .catch((error) => {
+                        // Handle errors
+                        console.error("Error:", error);
+                    });
+            })
+
             .catch((err) => console.error(err));
-        buildPostHTML();
+        //buildReplyHtml();
     }
+};
+
+// builds reply html blocks
+const buildReplyHtml = (reply) => {
+    return `<li class="reply-item row m-0 flex wrap align">
+        <p class="p-1 m-0">${reply.content}</p>
+        <small class="right mr-15">${reply.creator}</small>
+    </li>`;
 };
 
 const buildPostHTML = () => {
@@ -66,11 +113,14 @@ const buildPostHTML = () => {
         .then((posts) => {
             if (Array.isArray(posts.arrForum)) {
                 posts.arrForum.forEach((post) => {
-                    postStr += `<div id="post_${post._id}" class=" card p-1">
-                <div class="row m-0 card-title flex align main-post" postid="${
+                    postStr += `<div id="post_${post._id}" class=" card">
+                <div class="row m-0 card card-title flex align main-post" postid="${
                     post._id
                 }">
-                    <span class="left">${post.title}</span>
+                <div class="row w-100 m-0">
+                    <span class="left bold">${post.title}</span>
+                </div>
+                <div class="row w-100  m-0">
                     <small class="right">${
                         post.creator
                     } @ ${post.createdAt.substring(
@@ -78,28 +128,26 @@ const buildPostHTML = () => {
                         10
                     )} - ${post.createdAt.substring(11, 19)}</small>
                 </div>
+                </div>
                 <div id="reply_section_${
                     post._id
                 }" class="reply-section d-none">
-                <p>${post.content}</p>`;
+                <p class="p-1 card mb-0 main-post-content">${post.content}</p>`;
                     if (post.replies.length) {
-                        postStr += `<ul>`;
+                        postStr += `<ul id="reply_list_${post._id}">`;
                         post.replies.forEach((reply) => {
-                            postStr += `<li>
-                            <div class="row m-0">${reply.creator}</div>
-                            <div class="row m-0">${reply.content}</div>
-                        </li>`;
+                            postStr += buildReplyHtml(reply);
                         });
                     }
                     postStr += `
-            <div class="POST_REPLY">
-            <div class="input-field col s12">
+            <div class="POST_REPLY center">
+            <div class="input-field col s12 mb-0 p-1">
               <textarea id="reply-text" class="materialize-textarea"></textarea>
               <label style="width:100%;" for="reply-text">Write your reply here</label>
             </div>
             <button
               id="reply-submit"
-              class="REPLYBUTTON btn btn-login teal lighten-3 m-auto"
+              class="REPLYBUTTON btn btn-login teal lighten-3 m-auto mb-15"
               threadid="${post._id}"
             >
               <i class="fa-solid fa-question left"></i>

@@ -59,16 +59,17 @@ const submitReply = async (e) => {
                     .then((response) => {
                         console.log("Response:", response.data);
                         //console.log(res.json()))
-                        const parent = response.data.replies[0].parent;
-                        const replySection = document.getElementById(
-                            `reply_list_${parent}`
-                        );
-                        let html = "";
-                        response.data.replies.forEach((reply) => {
-                            html += buildReplyHtml(reply);
-                        });
+                        setTimeout(() => {
+                            const parent = response.data.replies[0].parent;
+                            const replySection = document.getElementById(
+                                `reply_list_${parent}`
+                            );
+                            let html = "";
+                            response.data.replies.forEach((reply) => {
+                                html += buildReplyHtml(reply);
+                            });
 
-                        html += ` <div class="POST_REPLY center">
+                            html += ` <div class="POST_REPLY center">
                         <div class="input-field col s12 mb-0 p-1">
                           <textarea id="reply-text" class="materialize-textarea"></textarea>
                           <label style="width:100%;" for="reply-text">Write your reply here</label>
@@ -82,11 +83,12 @@ const submitReply = async (e) => {
                           Submit a reply
                         </button>
                       </div></div></div>`;
-                        replySection.innerHTML = html;
+                            replySection.innerHTML = html;
+                        }, 200);
                     })
                     .catch((error) => {
                         // Handle errors
-                        console.error("Error:", error);
+                        console.log("Error:", error);
                     });
             })
 
@@ -112,6 +114,13 @@ const buildPostHTML = () => {
         })
         .then((posts) => {
             if (Array.isArray(posts.arrForum)) {
+                if (posts.arrForum.length == 0) {
+                    document
+                        .getElementById("post-progress-row")
+                        .classList.add("d-none");
+                    document.getElementById("forum-container").innerHTML =
+                        "<p>No Posts To Show</p>";
+                }
                 posts.arrForum.forEach((post) => {
                     postStr += `<div id="post_${post._id}" class=" card">
                 <div class="row m-0 card card-title flex align main-post" postid="${
@@ -133,8 +142,8 @@ const buildPostHTML = () => {
                     post._id
                 }" class="reply-section d-none">
                 <p class="p-1 card mb-0 main-post-content">${post.content}</p>`;
+                    postStr += `<ul id="reply_list_${post._id}">`;
                     if (post.replies.length) {
-                        postStr += `<ul id="reply_list_${post._id}">`;
                         post.replies.forEach((reply) => {
                             postStr += buildReplyHtml(reply);
                         });

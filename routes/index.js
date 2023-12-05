@@ -168,7 +168,7 @@ router.get("/news", ensureAuthenticated, (req, res) => {
 router.get("/learn/stream", ensureAuthenticated, async (req, res) => {
     res.setHeader("Cache-Control", "no-cache");
     res.setHeader("Content-Type", "text/event-stream");
-    res.setHeader("Access-Control-Allow-Origin", "*");
+    res.setHeader("Access-Control-Allow-Origin", "http://localhost");
     res.setHeader("Connection", "keep-alive");
     const question = req.query.question;
     const chunkList = [];

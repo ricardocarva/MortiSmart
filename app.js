@@ -26,6 +26,7 @@ connectDB();
 
 // init app
 const app = express();
+app.disable("x-powered-by");
 
 // init morgan for logging in dev mode only
 if (process.env.NODE_ENV === "development") {

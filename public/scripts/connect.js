@@ -1,9 +1,11 @@
 const submitPost = async (e) => {
     e.preventDefault();
+    document.getElementById("newpost-progress-row").classList.remove("d-none");
+
     console.log("Creating a post...");
     const posttext = document.getElementById("post-text").value;
     const title = document.getElementById("post-title").value;
-    console.log("Post text is: ", posttext, title);
+
     if (posttext && title) {
         fetch("http://localhost:3000/connect/create", {
             method: "POST",
@@ -16,9 +18,13 @@ const submitPost = async (e) => {
             }),
         })
             .then((res) => {
-                fetch("http://localhost:3000/connect/get-posts").then((res) => {
-                    console.log(res, "this is what we want");
-                });
+                // hide the progress bar before fetching posts
+                document
+                    .getElementById("newpost-progress-row")
+                    .classList.add("d-none");
+                fetch("http://localhost:3000/connect/get-posts").then(
+                    (res) => {}
+                );
             })
             .catch((err) => console.error(err));
     }
@@ -51,6 +57,7 @@ const submitReply = async (e) => {
 };
 
 const buildPostHTML = () => {
+    document.getElementById("post-progress-row").classList.remove("d-none");
     let postStr = "";
     fetch("http://localhost:3000/connect/get-posts")
         .then((res) => {
@@ -59,11 +66,21 @@ const buildPostHTML = () => {
         .then((posts) => {
             if (Array.isArray(posts.arrForum)) {
                 posts.arrForum.forEach((post) => {
-                    postStr += `<div class="card p-1">
-                <div class="row m-0 card-title align">
+                    postStr += `<div id="post_${post._id}" class=" card p-1">
+                <div class="row m-0 card-title flex align main-post" postid="${
+                    post._id
+                }">
                     <span class="left">${post.title}</span>
-                    <small class="right">${post.creator}</small>
+                    <small class="right">${
+                        post.creator
+                    } @ ${post.createdAt.substring(
+                        0,
+                        10
+                    )} - ${post.createdAt.substring(11, 19)}</small>
                 </div>
+                <div id="reply_section_${
+                    post._id
+                }" class="reply-section d-none">
                 <p>${post.content}</p>`;
                     if (post.replies.length) {
                         postStr += `<ul>`;
@@ -88,10 +105,27 @@ const buildPostHTML = () => {
               <i class="fa-solid fa-question left"></i>
               Submit a reply
             </button>
-          </div></div>`;
+          </div></div></div>`;
+                    document
+                        .getElementById("post-progress-row")
+                        .classList.add("d-none");
 
                     document.getElementById("forum-container").innerHTML =
                         postStr;
+                });
+                const mainPosts = document.querySelectorAll(".main-post");
+                mainPosts.forEach((post) => {
+                    post.onclick = (e) => {
+                        const id = post.getAttribute("postid");
+                        const reply = document.getElementById(
+                            `reply_section_${id}`
+                        );
+                        if (reply.classList.contains("d-none")) {
+                            reply.classList.remove("d-none");
+                        } else {
+                            reply.classList.add("d-none");
+                        }
+                    };
                 });
                 var list = document.getElementsByClassName("POST_REPLY");
                 for (let item of list) {
@@ -113,7 +147,8 @@ document.addEventListener("DOMContentLoaded", function () {
             container.classList.remove("d-none");
             icon.classList.remove("fa-plus");
             icon.classList.add("fa-close");
-
+            // focus on title
+            document.getElementById("post-title").focus();
             document.getElementById("post-submit").onclick = (e) => {
                 submitPost(e);
                 buildPostHTML();
@@ -125,6 +160,11 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     };
 
-    document.getElementById("post-title").focus();
+    // event listener for refreshing posts
+    document.getElementById("refreshPost").onclick = (e) => {
+        buildPostHTML();
+    };
+
+    // start by building posts
     buildPostHTML();
 });

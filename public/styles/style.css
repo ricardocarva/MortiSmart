@@ -197,6 +197,13 @@ nav ul a {
     color: var(--dark-green-font) !important;
 }
 
+.p-1 {
+    padding: 1rem;
+}
+
+.p-15 {
+    padding: 15px;
+}
 .p-0 {
     padding: 0px !important;
 }

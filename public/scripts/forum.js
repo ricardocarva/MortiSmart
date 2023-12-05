@@ -15,6 +15,10 @@ const post = new mongoose.Schema({
         type: Date,
         default: Date.now,
     },
+    title: {
+        type: String,
+        default: undefined,
+    },
     content: {
         type: String,
         default: undefined,
@@ -26,24 +30,31 @@ const post = new mongoose.Schema({
 forum_post = mongoose.model("Post", post);
 
 const getNumPosts = async (num) => {
-    return await forum_post.find({parent: null || undefined}).limit(num).lean();
-}
+    return await forum_post
+        .find({ parent: null })
+        .sort({ createdAt: -1 })
+        .limit(num)
+        .lean();
+};
 
 const getNumReplies = async (num, p_id) => {
     var ObjectId = mongoose.Types.ObjectId;
-    return await forum_post.find({parent: new ObjectId(p_id)}).limit(num).lean();
-}
+    return await forum_post
+        .find({ parent: new ObjectId(p_id) })
+        .sort({ createdAt: -1 })
+        .limit(num)
+        .lean();
+};
 
-
-const createNewPost = async (text, id) => {
+const createNewPost = async (title, text, id) => {
     console.log(id, text);
     const newPost = new forum_post({
         creator: id,
+        title: title,
         content: text,
     });
     await newPost.save();
-}
-
+};
 
 const replyToPost = async (text, u_id, p_id) => {
     console.log("Generating a new reply...");
@@ -56,7 +67,7 @@ const replyToPost = async (text, u_id, p_id) => {
     });
     console.log("Saving a new reply:", newPost);
     await newPost.save();
-}
+};
 
 module.exports.getNumPosts = getNumPosts;
 module.exports.getNumReplies = getNumReplies;

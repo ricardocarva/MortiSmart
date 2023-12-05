@@ -105,10 +105,6 @@ const getArticles = async () => {
         const response = await axios.get(url);
         sources = response.data.articles;
 
-        /*  if (sources.length > 150) {
-            sources = sources.slice(0, 150);
-        } */
-
         let res = "<div id='news-list'>";
         sources.forEach((source) => {
             res += `<div class="card news-item m-0 mb-15 ">

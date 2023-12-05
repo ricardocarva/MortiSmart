@@ -105,19 +105,37 @@ const getArticles = async () => {
         const response = await axios.get(url);
         sources = response.data.articles;
 
-        if (sources.length > 50) {
-            sources = sources.slice(0, 50);
-        }
+        /*  if (sources.length > 150) {
+            sources = sources.slice(0, 150);
+        } */
 
         let res = "<div id='news-list'>";
         sources.forEach((source) => {
             res += `<div class="card news-item m-0 mb-15 ">
-            <div class="content-header light-container-border light-mode">${source.title}</div>
+            <div class="content-header light-container-border light-mode">
+            ${source.title}
+          
+            </div>
             <a href=${source.url} target='_blank'>
-                <img class="news-item-img" src=${source.urlToImage} alt=${source.description}>
+                <img class="news-item-img" src=${source.urlToImage} alt=${
+                source.description
+            }>
             </a>    
-            <div class="card-content news-content light-container-border">
-                <p>${source.description}</p>
+            <div class="news-content light-container-border">
+            <div class="row mb-0 author">
+                <small class="left">By: ${source.author}</small>
+                <small class="right">Published: ${source.publishedAt.substring(
+                    0,
+                    10
+                )}</small>
+            </div>
+                <p class="m-0">${source.description}</p>
+                
+                <div class="row m-0 mt-15 copy-clip" url=${source.url}>
+                    <i class="fas fa-copy copy-icon"></i>
+                    <small class="ml-15">Copy Link</small>
+                </div>
+               
             </div>
             </div>`;
         });

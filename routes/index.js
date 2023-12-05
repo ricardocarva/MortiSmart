@@ -96,6 +96,62 @@ router.get("/learn", ensureAuthenticated, (req, res) => {
     });
 });
 
+const getArticles = async () => {
+    try {
+        const apiKey = process.env.NEWS_API;
+
+        const url = `https://newsapi.org/v2/everything?q=finance&apiKey=${apiKey}`;
+
+        const response = await axios.get(url);
+        sources = response.data.articles;
+
+        if (sources.length > 50) {
+            sources = sources.slice(0, 50);
+        }
+        console.log("Sources:", sources);
+
+        let res = "<div id='news-list'>";
+        sources.forEach((source) => {
+            res += `<div class="card news-item m-0 mb-15 ">
+            <div class="content-header light-container-border light-mode">${source.title}</div>
+            <a href=${source.url}>
+                <img class="news-item-img" src=${source.urlToImage} alt=${source.description}>
+            </a>    
+            <div class="card-content news-content light-container-border">
+                <p>${source.description}</p>
+            </div>
+            </div>`;
+        });
+        res += "</div>";
+        console.log(res);
+        return res;
+    } catch (error) {
+        // Handle error
+        console.error("Error fetching sources:", error.message);
+        return [];
+    }
+};
+
+router.get("/get-articles", ensureAuthenticated, async (req, res) => {
+    try {
+        const articles = await getArticles();
+        res.json({ articles });
+    } catch (error) {
+        res.status(500).json({ error: "Internal Server Error" });
+    }
+});
+
+router.get("/news", ensureAuthenticated, (req, res) => {
+    const user = req.user;
+    const data = {
+        username: user.email ? user.email : user.username,
+    };
+    res.render("news", {
+        layout: "main",
+        data: data,
+    });
+});
+
 router.get("/learn/stream", ensureAuthenticated, async (req, res) => {
     res.setHeader("Cache-Control", "no-cache");
     res.setHeader("Content-Type", "text/event-stream");

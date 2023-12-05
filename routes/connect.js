@@ -15,7 +15,7 @@ router.get("/", ensureAuthenticated, async (req, res) => {
     // Need to query for forum posts
     const { getNumPosts, getNumReplies } = require("../public/scripts/forum");
 
-    const arrForum = await getNumPosts(30);
+    /*   const arrForum = await getNumPosts(30);
     for (const post in arrForum) {
         arrForum[post].replies = [];
         const repliesArr = await getNumReplies(
@@ -26,13 +26,26 @@ router.get("/", ensureAuthenticated, async (req, res) => {
             arrForum[post].replies.push(repliesArr[reply]);
         }
     }
-
+ */
     //console.log("Resolved?", arrForum);
     res.render("connect", {
         layout: "main",
         data: data,
-        forumpost: arrForum,
+        //forumpost: arrForum,
     });
+});
+
+router.get("/get-replies", ensureAuthenticated, async (req, res) => {
+    // Need to query for forum posts
+    const { getNumReplies } = require("../public/scripts/forum");
+
+    // Access the post ID from the query parameters
+    const postId = req.query.postId;
+
+    // Use postId as needed, for example, pass it to your function
+    const replies = await getNumReplies(30, postId);
+
+    res.json({ replies });
 });
 
 router.get("/get-posts", ensureAuthenticated, async (req, res) => {

@@ -41,7 +41,6 @@ const getNumReplies = async (num, p_id) => {
     var ObjectId = mongoose.Types.ObjectId;
     return await forum_post
         .find({ parent: new ObjectId(p_id) })
-        .sort({ createdAt: -1 })
         .limit(num)
         .lean();
 };

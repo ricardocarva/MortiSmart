@@ -42,13 +42,56 @@ h4 {
     font-size: 1.5rem;
     margin: 15px 0px;
 }
+.main-content {
+    background-color: #f9f9f9;
+    border-bottom: 0px !important;
+    border-bottom-left-radius: 0px;
+    border-bottom-right-radius: 0px;
+}
+
+.main-post-content {
+    background-color: #fff;
+    margin-top: 0;
+    border-top: 0px;
+    border: 0px !important;
+    border-top-left-radius: 0px;
+    border-top-right-radius: 0px;
+}
+
+.main-post {
+    padding: 1rem;
+    margin: 0.5rem 0 1rem 0;
+    background: #f9f9f9;
+
+    border-bottom-left-radius: 0px;
+    border-bottom-right-radius: 0px;
+
+    margin-bottom: 0;
+}
+
+.reply-item {
+    border-bottom: 1px solid #e9e8e8 !important;
+}
+.card-title small {
+    font-size: 12px;
+    font-weight: 400;
+}
+
+.card-title .bold {
+    font-size: 20px;
+    font-weight: 600;
+}
 
 .news-row {
     height: 10px;
 }
 .news-item {
-    width: 320px;
+    width: 500px;
     margin: 2rem 1rem !important;
+}
+
+a .news-item-img:hover {
+    cursor: pointer;
 }
 
 .news-item-img {
@@ -64,9 +107,35 @@ h4 {
     margin-bottom: 1rem;
 }
 
-.card-content.news-content.light-container-border {
-    margin-top: -7px;
+.news-content.light-container-border {
+    margin-top: -24px;
     border-top: 0px !important;
+}
+
+#forum-container {
+    max-height: 65vh;
+    overflow-y: scroll;
+    padding: 1rem;
+}
+
+.news-content p {
+    padding: 24px;
+}
+
+.news-content .row {
+    padding: 10px 24px;
+    padding-top: 0px;
+    margin: 0px;
+}
+
+.row.author {
+    padding-top: 3rem;
+    margin-bottom: 0;
+}
+
+.news-content i:hover {
+    cursor: pointer;
+    color: var(--dark-green-font);
 }
 /* #chat-response h1 {
     font-size: 2rem;
@@ -137,11 +206,14 @@ i.left {
 }
 
 .mb-0 {
-    margin-bottom: 0px;
+    margin-bottom: 0px !important;
 }
 
+.mb-5 {
+    margin-bottom: 5px !important;
+}
 .mb-15 {
-    margin-bottom: 15px;
+    margin-bottom: 15px !important;
 }
 
 .m-15 {
@@ -173,6 +245,13 @@ nav ul a {
     color: var(--dark-green-font) !important;
 }
 
+.p-1 {
+    padding: 1rem;
+}
+
+.p-15 {
+    padding: 15px;
+}
 .p-0 {
     padding: 0px !important;
 }
@@ -464,7 +543,9 @@ input {
 .form-input input:focus {
     outline: 1px solid var(--main-green);
 } */
-
+.h-0 {
+    height: 0px;
+}
 .h-200 {
     height: 200px !important;
 }

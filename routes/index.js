@@ -105,25 +105,38 @@ const getArticles = async () => {
         const response = await axios.get(url);
         sources = response.data.articles;
 
-        if (sources.length > 50) {
-            sources = sources.slice(0, 50);
-        }
-        console.log("Sources:", sources);
-
         let res = "<div id='news-list'>";
         sources.forEach((source) => {
             res += `<div class="card news-item m-0 mb-15 ">
-            <div class="content-header light-container-border light-mode">${source.title}</div>
-            <a href=${source.url}>
-                <img class="news-item-img" src=${source.urlToImage} alt=${source.description}>
+            <div class="content-header light-container-border light-mode">
+            ${source.title}
+          
+            </div>
+            <a href=${source.url} target='_blank'>
+                <img class="news-item-img" src=${source.urlToImage} alt=${
+                source.description
+            }>
             </a>    
-            <div class="card-content news-content light-container-border">
-                <p>${source.description}</p>
+            <div class="news-content light-container-border">
+            <div class="row mb-0 author">
+                <small class="left">By: ${source.author}</small>
+                <small class="right">Published: ${source.publishedAt.substring(
+                    0,
+                    10
+                )}</small>
+            </div>
+                <p class="m-0">${source.description}</p>
+                
+                <div class="row m-0 mt-15 copy-clip" url=${source.url}>
+                    <i class="fas fa-copy copy-icon"></i>
+                    <small class="ml-15">Copy Link</small>
+                </div>
+               
             </div>
             </div>`;
         });
         res += "</div>";
-        console.log(res);
+
         return res;
     } catch (error) {
         // Handle error
@@ -155,7 +168,7 @@ router.get("/news", ensureAuthenticated, (req, res) => {
 router.get("/learn/stream", ensureAuthenticated, async (req, res) => {
     res.setHeader("Cache-Control", "no-cache");
     res.setHeader("Content-Type", "text/event-stream");
-    res.setHeader("Access-Control-Allow-Origin", "*");
+    res.setHeader("Access-Control-Allow-Origin", "http://localhost");
     res.setHeader("Connection", "keep-alive");
     const question = req.query.question;
     const chunkList = [];

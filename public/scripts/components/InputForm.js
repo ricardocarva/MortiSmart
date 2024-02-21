@@ -25,9 +25,9 @@ const s2ab = (s) => {
     }
     return buf;
 };
+
 const formatNumber = (n) => {
-    // format number 1000000 to 1,234,567
-    return n.replace(/\D/g, "").replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    return n.replace(/\D/g, "").replace(/\B(?=(\d{3})+\b)/g, ",");
 };
 
 const parseCurrency = (input) => {

@@ -19,7 +19,6 @@ describe("Calulation Test Cases", () => {
         const roundedExpected = parseFloat(expected.toFixed(6));
 
         expect(roundedActual).toBe(roundedExpected);
-        // expect(actual).toBe(expected);
     });
 
     // confirm getMonthlyPayment properly handles bad data
@@ -95,7 +94,7 @@ describe("Calulation Test Cases", () => {
         const badAmount = "BAD_DATA";
         const actual = getTotalAmountPaid(badAmount, totalInterest);
         const expected = -1;
-        expect(actual).toBe(-1);
+        expect(actual).toBe(expected);
     });
 
     // confirms getAmortizationSchedule properly handles valid data
@@ -236,8 +235,6 @@ describe("Calulation Test Cases", () => {
         const extraMonthly = 300;
         const actual = getSavingsExtraMonthly(amount, rate, term, extraMonthly);
 
-        console.log(actual);
-
         expect(Array.isArray(actual)).toBe(true);
         const actualLast = actual[0];
         const expectedLast = {
@@ -258,8 +255,6 @@ describe("Calulation Test Cases", () => {
         const term = 30;
         const extraMonthly = 450;
         const actual = getSavingsExtraMonthly(amount, rate, term, extraMonthly);
-
-        console.log(actual);
 
         expect(Array.isArray(actual)).toBe(true);
         const actualLast = actual[0];

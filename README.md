@@ -13,8 +13,7 @@ make sure you setup your config.env with your own api and database keys.
 want to run webpack to rebundle?
 `npx webpack --mode production`
 
-want to run tests?
-`npm run test`
+To run automated tests, run: ```npm run test:limited``` or ```npm run test:test:full```. This will check coverage for all .js files or just some .test.js files.
 
 =======
 

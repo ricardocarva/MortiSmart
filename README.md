@@ -50,19 +50,19 @@ This will check coverage for all .js files or just some .test.js files.
 
 ### Login 
 
-![](readmeImages\login.png)
+![](readmeImages/login.png)
 
 ### Dashboard
 
-![](readmeImages\dashboardmain.png)
-![](readmeImages\dashboardexample1.png)
-![](readmeImages\dashboardexample2.png)
+![](readmeImages/dashboardmain.png)
+![](readmeImages/dashboardexample1.png)
+![](readmeImages/dashboardexample2.png)
 
 ### Learn
-![](readmeImages\learn.png)
+![](readmeImages/learn.png)
 
 ### Forum
-![](readmeImages\forum.png)
+![](readmeImages/forum.png)
 
 ### News
-![](readmeImages\news.png)
+![](readmeImages/news.png)
